@@ -1,13 +1,13 @@
 {
-  "name": "@fusebit/add-on-sdk",
-  "version": "0.0.1",
-  "description": "SDK for implementing Fusebit Add-Ons",
-  "main": "lib/index.js",
-  "license": "MIT",
-  "author": "https://fusebit.io",
-  "packageAs": "@fusebit/add-on-sdk",
-  "keywords": [],
-  "dependencies": {
-    "superagent": "^5.2.2"
-  }
+    "name": "@fusebit/add-on-sdk",
+    "version": "0.0.1",
+    "description": "SDK for implementing Fusebit Add-Ons",
+    "main": "lib/index.js",
+    "license": "MIT",
+    "author": "https://fusebit.io",
+    "packageAs": "@fusebit/add-on-sdk",
+    "keywords": [],
+    "dependencies": {
+        "superagent": "^5.2.2"
+    }
 }
