@@ -1,6 +1,6 @@
 {
     "name": "@fusebit/add-on-sdk",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "description": "SDK for implementing Fusebit Add-Ons",
     "main": "lib/index.js",
     "license": "MIT",
