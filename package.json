@@ -9,6 +9,7 @@
     "keywords": [],
     "dependencies": {
         "jsonwebtoken": "^8.5.1",
-        "superagent": "^5.2.2"
+        "superagent": "^5.2.2",
+        "uuid": "^8.2.0"
     }
 }
