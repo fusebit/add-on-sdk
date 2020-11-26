@@ -1,6 +1,6 @@
 {
     "name": "@fusebit/add-on-sdk",
-    "version": "2.2.0",
+    "version": "3.0.0",
     "description": "SDK for implementing Fusebit Add-Ons",
     "main": "lib/index.js",
     "license": "MIT",
@@ -8,9 +8,7 @@
     "packageAs": "@fusebit/add-on-sdk",
     "keywords": [],
     "dependencies": {
-        "jsonwebtoken": "^8.5.1",
-        "superagent": "^5.2.2",
-        "uuid": "^8.2.0"
+        "superagent": "^6.1.0"
     },
     "devDependencies": {
         "prettier": "^2.0.5"
