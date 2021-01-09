@@ -1,6 +1,6 @@
 {
     "name": "@fusebit/add-on-sdk",
-    "version": "3.0.2",
+    "version": "3.0.3",
     "description": "SDK for implementing Fusebit Add-Ons",
     "main": "lib/index.js",
     "license": "MIT",
@@ -11,6 +11,12 @@
         "superagent": "^6.1.0"
     },
     "devDependencies": {
-        "prettier": "^2.0.5"
+        "prettier": "^2.0.5",
+        "jest": "^24.9.0",
+        "uuid": "^8.3.2"
+    },
+    "scripts": {
+        "test": "jest --colors",
+        "coverage": "jest --colors --coverage"
     }
 }
