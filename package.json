@@ -1,6 +1,6 @@
 {
     "name": "@fusebit/add-on-sdk",
-    "version": "3.0.3",
+    "version": "3.1.0",
     "description": "SDK for implementing Fusebit Add-Ons",
     "main": "lib/index.js",
     "license": "MIT",
@@ -8,13 +8,15 @@
     "packageAs": "@fusebit/add-on-sdk",
     "keywords": [],
     "dependencies": {
-        "superagent": "^6.1.0"
+        "superagent": "^6.1.0",
+        "mock-http": "1.1.0"
     },
     "devDependencies": {
         "node-notifier": ">=8.0.1",
         "prettier": "^2.0.5",
         "jest": "^26.6.3",
-        "uuid": "^8.3.2"
+        "uuid": "^8.3.2",
+        "express": "4.17.1"
     },
     "scripts": {
         "test": "jest --colors",

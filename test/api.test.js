@@ -1,5 +1,7 @@
 const sdk = require('../lib');
 const Url = require('url');
+const Express = require('express');
+const bodyParser = require('body-parser');
 
 const configurationInitData = {
     baseUrl: 'https://api.fusebit.io',
@@ -104,6 +106,77 @@ const configureMissingState = {
     initialState: 'initial',
 };
 
+const app = Express();
+app.get('/test', (req, res) => {
+    res.json({ foo: 'bar', query: req.query });
+});
+app.post('/test', (req, res) => {
+    res.json({ req: req.body });
+});
+app.post('/test-ctx', (req, res) => {
+    res.json({ fusebit: req.fusebit });
+});
+
+const expressGetCtx = {
+    method: 'GET',
+    baseUrl: 'https://api.fusebit.io/v1/run/subscription/boundary/function/test',
+    url: '/run/subscription/boundary/function/test',
+    query: {
+        a: '1',
+        b: '2',
+    },
+    configuration: {
+        c: 'd',
+    },
+    fusebit: {
+        functionAccessToken: 'abc',
+    },
+};
+
+const expressPostCtx = {
+    method: 'POST',
+    baseUrl: 'https://api.fusebit.io/v1/run/subscription/boundary/function/test',
+    url: '/run/subscription/boundary/function/test',
+    query: {
+        a: '1',
+        b: '2',
+    },
+    configuration: {
+        c: 'd',
+    },
+    fusebit: {
+        functionAccessToken: 'abc',
+    },
+    body: {
+        foo: 'bar',
+    },
+    headers: {
+        'content-type': 'application/json',
+    },
+};
+
+const expressPostCtxCtx = {
+    method: 'POST',
+    baseUrl: 'https://api.fusebit.io/v1/run/subscription/boundary/function/test-ctx',
+    url: '/run/subscription/boundary/function/test-ctx',
+    query: {
+        a: '1',
+        b: '2',
+    },
+    configuration: {
+        c: 'd',
+    },
+    fusebit: {
+        functionAccessToken: 'abc',
+    },
+    body: {
+        foo: 'bar',
+    },
+    headers: {
+        'content-type': 'application/json',
+    },
+};
+
 describe('api', () => {
     test('Sdk has the required exports', async () => {
         expect(typeof sdk.debug).toBe('function');
@@ -122,6 +195,7 @@ describe('api', () => {
         expect(typeof sdk.getFunctionDefinition).toBe('function');
         expect(typeof sdk.getFunctionUrl).toBe('function');
         expect(typeof sdk.createStorageClient).toBe('function');
+        expect(typeof sdk.createFusebitFunctionFromExpress).toBe('function');
     });
 
     test('serializeState and deserializeState roundtrip the data', async () => {
@@ -319,5 +393,50 @@ describe('api', () => {
         expect(url.query.returnTo).toBe(`${ctx.baseUrl}/configure`);
         expect(url.query.state).toBe(sdk.serializeState('abc'));
         expect(url.query.data).toBe(sdk.serializeState({ def: 'ghj' }));
+    });
+
+    test('createFusebitFunctionFromExpress returns an async function', async () => {
+        const handler = sdk.createFusebitFunctionFromExpress(Express());
+        expect(typeof handler).toBe('function');
+        expect(handler.constructor.name).toBe('AsyncFunction');
+    });
+
+    test('createFusebitFunctionFromExpress handler reponds to GET request', async () => {
+        const handler = sdk.createFusebitFunctionFromExpress(app);
+        const response = await handler(expressGetCtx);
+        expect(response).toMatchObject({
+            body: '{"foo":"bar","query":{"a":"1","b":"2"}}',
+            bodyEncoding: 'utf8',
+            headers: {
+                'content-type': 'application/json; charset=utf-8',
+            },
+            status: 200,
+        });
+    });
+
+    test('createFusebitFunctionFromExpress handler reponds to POST request', async () => {
+        const handler = sdk.createFusebitFunctionFromExpress(app);
+        const response = await handler(expressPostCtx);
+        expect(response).toMatchObject({
+            body: '{"req":{"foo":"bar"}}',
+            bodyEncoding: 'utf8',
+            headers: {
+                'content-type': 'application/json; charset=utf-8',
+            },
+            status: 200,
+        });
+    });
+
+    test('createFusebitFunctionFromExpress passes fusebit context to handler', async () => {
+        const handler = sdk.createFusebitFunctionFromExpress(app);
+        const response = await handler(expressPostCtxCtx);
+        expect(response).toMatchObject({
+            body: JSON.stringify({ fusebit: expressPostCtxCtx }),
+            bodyEncoding: 'utf8',
+            headers: {
+                'content-type': 'application/json; charset=utf-8',
+            },
+            status: 200,
+        });
     });
 });
