@@ -121,6 +121,7 @@ const expressGetCtx = {
     method: 'GET',
     baseUrl: 'https://api.fusebit.io/v1/run/subscription/boundary/function/test',
     url: '/run/subscription/boundary/function/test',
+    path: '/test',
     query: {
         a: '1',
         b: '2',
@@ -137,6 +138,7 @@ const expressPostCtx = {
     method: 'POST',
     baseUrl: 'https://api.fusebit.io/v1/run/subscription/boundary/function/test',
     url: '/run/subscription/boundary/function/test',
+    path: '/test',
     query: {
         a: '1',
         b: '2',
@@ -159,6 +161,7 @@ const expressPostCtxCtx = {
     method: 'POST',
     baseUrl: 'https://api.fusebit.io/v1/run/subscription/boundary/function/test-ctx',
     url: '/run/subscription/boundary/function/test-ctx',
+    path: '/test-ctx',
     query: {
         a: '1',
         b: '2',
