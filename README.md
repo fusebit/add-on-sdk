@@ -26,6 +26,10 @@ debug=1 FUSE_PROFILE={profile-name} npm test
 
 ## Release Notes
 
+### v3.1.0
+
+-   Add support for converting an Express app to a Fusebit Function
+
 ### v3.0.3
 
 -   Fix bug in parameter processing in the storage client
